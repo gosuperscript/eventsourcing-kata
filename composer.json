@@ -1,0 +1,18 @@
+{
+    "name": "robertbaelde/eventsourcing",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Robertbaelde\\Eventsourcing\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Robertbaelde",
+            "email": "robert_baelde@hotmail.com"
+        }
+    ],
+    "require": {}
+}

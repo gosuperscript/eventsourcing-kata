@@ -32,4 +32,26 @@ class BankingAccountTest extends TestCase
         $this->assertCount(1, $events);
         $this->assertEquals(new AccountDebited(50), $events[0]);
     }
+
+    /** @test */
+    public function it_doesnt_allow_debit_resulting_in_negative_saldo()
+    {
+        $bankAccountNumber = BankAccountNumber::fromString('1234567890');
+        $aggregate = new BankAccount($bankAccountNumber);
+        $aggregate->credit(40);
+        $aggregate->releaseEvents();
+
+        $exceptionThrown = false;
+        try {
+            $aggregate->debit(50);
+        } catch (SorryCouldntDebitBecauseInsufficientFunds $e) {
+            $exceptionThrown = true;
+        }
+
+        $events = $aggregate->releaseEvents();
+        $this->assertCount(1, $events);
+        $this->assertEquals(new CouldntDebitBecauseInsufficientFunds(50, 40), $events[0]);
+
+        $this->assertTrue($exceptionThrown);
+    }
 }

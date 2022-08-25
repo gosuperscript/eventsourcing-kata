@@ -54,4 +54,27 @@ class BankingAccountTest extends TestCase
 
         $this->assertTrue($exceptionThrown);
     }
+
+    /** @test */
+    public function aggregate_root_can_be_reconstructed_from_events()
+    {
+        $bankAccountNumber = BankAccountNumber::fromString('1234567890');
+        $aggregate = BankAccount::fromEvents($bankAccountNumber, [
+            new AccountCredited(100),
+            new AccountDebited(60),
+        ]);
+
+        $exceptionThrown = false;
+        try {
+            $aggregate->debit(50);
+        } catch (SorryCouldntDebitBecauseInsufficientFunds $e) {
+            $exceptionThrown = true;
+        }
+
+        $events = $aggregate->releaseEvents();
+        $this->assertCount(1, $events);
+        $this->assertEquals(new CouldntDebitBecauseInsufficientFunds(50, 40), $events[0]);
+
+        $this->assertTrue($exceptionThrown);
+    }
 }

@@ -14,5 +14,7 @@
             "email": "robert_baelde@hotmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ramsey/uuid": "^4.4"
+    }
 }

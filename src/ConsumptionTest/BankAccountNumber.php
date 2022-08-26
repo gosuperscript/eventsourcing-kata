@@ -2,6 +2,13 @@
 
 namespace Robertbaelde\Eventsourcing\ConsumptionTest;
 
-class BankAccountNumber extends AggregateRootId
+use Ramsey\Uuid\Uuid;
+use Robertbaelde\Eventsourcing\AggregateRootId;
+
+final class BankAccountNumber extends AggregateRootId
 {
+    public static function generate(): self
+    {
+        return new self(Uuid::uuid4()->toString());
+    }
 }

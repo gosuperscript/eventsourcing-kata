@@ -2,7 +2,6 @@
 
 namespace Robertbaelde\Eventsourcing;
 
-use Robertbaelde\Eventsourcing\ConsumptionTest\AggregateRootId;
 use Robertbaelde\Eventsourcing\ConsumptionTest\BankAccountNumber;
 
 abstract class AggregateRoot

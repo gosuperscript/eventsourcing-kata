@@ -1,6 +1,6 @@
 <?php
 
-namespace Robertbaelde\Eventsourcing\ConsumptionTest;
+namespace Robertbaelde\Eventsourcing;
 
 abstract class AggregateRootId
 {
